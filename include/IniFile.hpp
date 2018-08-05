@@ -8,12 +8,10 @@
 class IniFile {
 public:
 	explicit IniFile(std::string fileName);
-	int getInt(std::string sectionName, std::string key);
-	std::string getString(std::string sectionName, std::string key);
+	std::map<std::string, std::map<std::string, std::string>> getMap();
+	int getInt(std::string section, std::string key);
+	bool getBool(std::string section, std::string key);
 
 private:
 	std::map<std::string, std::map<std::string, std::string>> fileMap;
 };
-
-
-
