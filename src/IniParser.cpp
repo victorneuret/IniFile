@@ -13,19 +13,39 @@ IniParser::IniParser(std::string &filePath)
 
 void IniParser::parse()
 {
-	std::string str = getNextLine();
-
-	while (!str.empty()) {
-		std::cout << str << std::endl;
-		str = getNextLine();
+	while (getNextLine()) {
+		if (getSection())
+			continue;
+		getKey();
+		getValue();
+		std::cout << "section: '" << section << "'\t";
+		std::cout << "key: '" << key << "'\t";
+		std::cout << "value: '" << value << "'" << std::endl;
 	}
 }
 
-std::string IniParser::getNextLine()
+bool IniParser::getNextLine()
 {
-	std::string line;
-
 	if (!std::getline(file, line))
-		return "";
-	return line;
+		return false;
+	return true;
+}
+
+void IniParser::getKey()
+{
+	key = line.substr(0, line.find("="));
+}
+
+void IniParser::getValue()
+{
+	value = line.substr(line.find("=") + 1);
+}
+
+bool IniParser::getSection()
+{
+	if (line[0] == '[' && line[line.length() - 1] == ']') {
+		section = line.substr(1, line.length() - 2);
+		return true;
+	}
+	return false;
 }
