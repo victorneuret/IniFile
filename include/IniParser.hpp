@@ -9,6 +9,7 @@ public:
 	IniParser(std::string &filePath);
 	void parse();
 	std::map<std::string, std::map<std::string, std::string>> getMap();
+	void printMap();
 
 private:
 	std::map<std::string, std::map<std::string, std::string>> fileMap;

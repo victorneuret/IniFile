@@ -16,11 +16,20 @@ void IniParser::parse()
 	while (getNextLine()) {
 		if (getSection())
 			continue;
+		formatLine();
 		getKey();
 		getValue();
-		std::cout << "section: '" << section << "'\t";
-		std::cout << "key: '" << key << "'\t";
-		std::cout << "value: '" << value << "'" << std::endl;
+		fileMap[section][key] = value;
+	}
+}
+
+void IniParser::printMap()
+{
+	for (auto sectionElem : fileMap) {
+		std::cout << "[" << sectionElem.first << "]" << std::endl;
+		for (auto keyElem : fileMap[sectionElem.first])
+			std::cout << keyElem.first << ": "
+				<< keyElem.second << std::endl;
 	}
 }
 
@@ -29,6 +38,22 @@ bool IniParser::getNextLine()
 	if (!std::getline(file, line))
 		return false;
 	return true;
+}
+
+void IniParser::formatLine()
+{
+	int i = 0;
+
+	while (line[i] != '=') {
+		if (line[i] == ' ') {
+			line.erase(i, 1);
+			continue;
+		}
+		i++;
+	}
+	i++;
+	while (line[i] == ' ')
+		line.erase(i, 1);
 }
 
 void IniParser::getKey()

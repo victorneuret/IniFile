@@ -6,4 +6,5 @@
 IniFile::IniFile(std::string fileName)
 {
 	IniParser parser(fileName);
+	parser.printMap();
 }
