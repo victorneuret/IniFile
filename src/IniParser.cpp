@@ -11,6 +11,11 @@ IniParser::IniParser(std::string &filePath)
 	parse();
 }
 
+std::map<std::string, std::map<std::string, std::string>> IniParser::getMap()
+{
+	return fileMap;
+}
+
 void IniParser::parse()
 {
 	while (getNextLine()) {
@@ -20,16 +25,6 @@ void IniParser::parse()
 		getKey();
 		getValue();
 		fileMap[section][key] = value;
-	}
-}
-
-void IniParser::printMap()
-{
-	for (auto sectionElem : fileMap) {
-		std::cout << "[" << sectionElem.first << "]" << std::endl;
-		for (auto keyElem : fileMap[sectionElem.first])
-			std::cout << keyElem.first << ": "
-				<< keyElem.second << std::endl;
 	}
 }
 

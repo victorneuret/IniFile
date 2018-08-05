@@ -11,6 +11,7 @@ public:
 	std::map<std::string, std::map<std::string, std::string>> getMap();
 	int getInt(std::string section, std::string key);
 	bool getBool(std::string section, std::string key);
+	void printMap();
 
 private:
 	std::map<std::string, std::map<std::string, std::string>> fileMap;
