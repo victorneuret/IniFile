@@ -1,0 +1,13 @@
+*
+
+!*/
+
+!*.cpp
+!*.hpp
+
+!.gitignore
+!README.txt
+
+!Makefile
+
+!*.ini
