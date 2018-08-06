@@ -19,7 +19,7 @@ std::map<std::string, std::map<std::string, std::string>> IniParser::getMap()
 void IniParser::parse()
 {
 	while (getNextLine()) {
-		if (getSection())
+		if (getSection() || isCommentLine())
 			continue;
 		formatLine();
 		getKey();
@@ -33,6 +33,17 @@ bool IniParser::getNextLine()
 	if (!std::getline(file, line))
 		return false;
 	return true;
+}
+
+bool IniParser::isCommentLine()
+{
+	if (line[0] == ';' || line[0] == '#')
+		return true;
+	for (int i = 0; line[i]; i++) {
+		if ((line[i] == ';' || line[i] == '#') && line[i - 1] != '\\')
+			line.erase(i, line.length() - 1);
+	}
+	return false;
 }
 
 void IniParser::formatLine()
@@ -49,6 +60,8 @@ void IniParser::formatLine()
 	i++;
 	while (line[i] == ' ')
 		line.erase(i, 1);
+	for (int j = line.length() - 1; line[j] == ' '; j--)
+		line.erase(j, 1);
 }
 
 void IniParser::getKey()
