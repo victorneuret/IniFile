@@ -24,6 +24,7 @@ void IniParser::parse()
 		formatLine();
 		getKey();
 		getValue();
+		valueQuotes();
 		fileMap[section][key] = value;
 	}
 }
@@ -32,6 +33,7 @@ bool IniParser::getNextLine()
 {
 	if (!std::getline(file, line))
 		return false;
+	actualLine++;
 	return true;
 }
 
@@ -81,4 +83,18 @@ bool IniParser::getSection()
 		return true;
 	}
 	return false;
+}
+
+void IniParser::valueQuotes()
+{
+	int nbQuotes = 0;
+
+	for (int i = 0; value[i]; i++)
+		if (value[i] == '"' || value[i] == '\'')
+			nbQuotes++;
+	if (nbQuotes % 2 != 0)
+		throw std::runtime_error(
+			INVALID_QUOTES + std::to_string(actualLine));
+	value.erase(0, 1);
+	value.erase(value.length() - 1, 1);
 }

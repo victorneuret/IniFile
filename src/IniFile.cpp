@@ -5,8 +5,12 @@
 
 IniFile::IniFile(std::string fileName)
 {
-	IniParser parser(fileName);
-	fileMap = parser.getMap();
+	try {
+		IniParser parser(fileName);
+		fileMap = parser.getMap();
+	} catch (std::runtime_error &str) {
+		std::cerr << str.what() << std::endl;
+	}
 }
 
 void IniFile::printMap()

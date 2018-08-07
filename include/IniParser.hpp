@@ -4,6 +4,9 @@
 #include <map>
 #include <fstream>
 
+#define INVALID_QUOTES "Invalid quotes on line "
+
+
 class IniParser {
 public:
 	IniParser(std::string &filePath);
@@ -17,6 +20,7 @@ private:
 	std::string section = "global";
 	std::string key;
 	std::string value;
+	int actualLine = 0;
 
 	bool getNextLine();
 	void getKey();
@@ -25,4 +29,5 @@ private:
 	bool isCommentLine();
 	bool isBlankLine();
 	void formatLine();
+	void valueQuotes();
 };
