@@ -88,11 +88,13 @@ bool IniParser::getSection()
 void IniParser::valueQuotes()
 {
 	int nbQuotes = 0;
+	int length = value.length() - 1;
 
 	for (int i = 0; value[i]; i++)
-		if (value[i] == '"' || value[i] == '\'')
+		if ((value[i] == '"' || value[i] == '\'')
+			&& ((i > 1) ? value[i - 1] != '\\': 1))
 			nbQuotes++;
-	if (nbQuotes % 2 != 0)
+	if (nbQuotes != 2 || (nbQuotes == 2 && value[0] != value[length]))
 		throw std::runtime_error(
 			INVALID_QUOTES + std::to_string(actualLine));
 	value.erase(0, 1);
