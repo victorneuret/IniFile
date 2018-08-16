@@ -2,7 +2,8 @@ NAME	=	ini
 
 SRC	=	src/main.cpp	\
 		src/IniParser.cpp	\
-		src/IniFile.cpp
+		src/IniFile.cpp		\
+		src/EscapeChar.cpp
 
 CPPFLAGS	=	-I./include
 
