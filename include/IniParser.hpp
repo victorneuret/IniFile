@@ -5,15 +5,16 @@
 #include <fstream>
 
 #define INVALID_QUOTES "Invalid quotes on line "
+#define MISSING_SEPARATOR "Missing separator on line "
 
-
-class IniParser {
-public:
+class IniParser
+{
+  public:
 	IniParser(std::string &filePath);
 	void parse();
 	std::map<std::string, std::map<std::string, std::string>> getMap();
 
-private:
+  private:
 	std::map<std::string, std::map<std::string, std::string>> fileMap;
 	std::fstream file;
 	std::string line;
@@ -21,6 +22,23 @@ private:
 	std::string key;
 	std::string value;
 	int actualLine = 0;
+	char escapeChar[15][2] = {
+		{'\\', '\\'},
+		{'0', '\0'},
+		{'a', '\a'},
+		{'b', '\b'},
+		{'t', '\t'},
+		{'r', '\r'},
+		{'n', '\n'},
+		{';', ';'},
+		{'#', '#'},
+		{'=', '='},
+		{':', ':'},
+		{'x', 'x'},
+		{'"', '"'},
+		{'\'', '\''},
+		{'\0', '\0'}
+	};
 
 	bool getNextLine();
 	void getKey();
@@ -30,4 +48,5 @@ private:
 	bool isBlankLine();
 	void formatLine();
 	void valueQuotes();
+	void escapeCharacter();
 };

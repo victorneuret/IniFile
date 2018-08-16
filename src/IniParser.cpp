@@ -2,6 +2,7 @@
 #include <string>
 
 #include "IniParser.hpp"
+#include "EscapeChar.hpp"
 
 IniParser::IniParser(std::string &filePath)
 {
@@ -21,7 +22,9 @@ void IniParser::parse()
 	while (getNextLine()) {
 		if (getSection() || isCommentLine())
 			continue;
+		std::cout << '1' << std::endl;
 		formatLine();
+		escapeCharacter();
 		getKey();
 		getValue();
 		valueQuotes();
@@ -52,7 +55,7 @@ void IniParser::formatLine()
 {
 	int i = 0;
 
-	while (line[i] != '=') {
+	while (line[i] != '=' && line[i] != ':') {
 		if (line[i] == ' ') {
 			line.erase(i, 1);
 			continue;
@@ -68,12 +71,32 @@ void IniParser::formatLine()
 
 void IniParser::getKey()
 {
-	key = line.substr(0, line.find("="));
+	size_t equalPos = line.find_first_of('=');
+	size_t colonPos = line.find_first_of(':');
+	
+	if (colonPos == std::string::npos && equalPos == std::string::npos)
+		throw std::runtime_error(
+			MISSING_SEPARATOR + std::to_string(actualLine));
+	if (colonPos == std::string::npos || equalPos < colonPos)
+		key = line.substr(0, line.find("="));
+	else if (equalPos == std::string::npos || equalPos > colonPos)
+		key = line.substr(0, line.find(":"));	
+	std::cout << line << std::endl;
 }
 
 void IniParser::getValue()
 {
-	value = line.substr(line.find("=") + 1);
+	size_t equalPos = line.find_first_of('=');
+	size_t colonPos = line.find_first_of(':');
+	
+	if (colonPos == std::string::npos && equalPos == std::string::npos)
+		throw std::runtime_error(
+			MISSING_SEPARATOR + std::to_string(actualLine));
+	if (colonPos == std::string::npos || equalPos < colonPos)
+		value = line.substr(line.find("=") + 1);
+	else if (equalPos == std::string::npos || equalPos > colonPos)
+		value = line.substr(line.find(":") + 1);
+	std::cout << line << std::endl;
 }
 
 bool IniParser::getSection()
@@ -91,12 +114,21 @@ void IniParser::valueQuotes()
 	int length = value.length() - 1;
 
 	for (int i = 0; value[i]; i++)
-		if ((value[i] == '"' || value[i] == '\'')
-			&& ((i > 1) ? value[i - 1] != '\\': 1))
+		if ((value[i] == '"' || value[i] == '\''))
+			// && ((i > 1) ? value[i - 1] != '\\' : 1))
 			nbQuotes++;
-	if (nbQuotes != 2 || (nbQuotes == 2 && value[0] != value[length]))
+	if ((nbQuotes != 2 && nbQuotes != 0) 
+		|| (nbQuotes == 2 && value[0] != value[length]))
 		throw std::runtime_error(
 			INVALID_QUOTES + std::to_string(actualLine));
-	value.erase(0, 1);
-	value.erase(value.length() - 1, 1);
+	else if (nbQuotes == 2) {
+		value.erase(0, 1);
+		value.erase(value.length() - 1, 1);
+	}
+}
+
+void IniParser::escapeCharacter()
+{
+	EscapeChar escape(line);
+	line = escape.getString();
 }
