@@ -22,23 +22,6 @@ class IniParser
 	std::string key;
 	std::string value;
 	int actualLine = 0;
-	char escapeChar[15][2] = {
-		{'\\', '\\'},
-		{'0', '\0'},
-		{'a', '\a'},
-		{'b', '\b'},
-		{'t', '\t'},
-		{'r', '\r'},
-		{'n', '\n'},
-		{';', ';'},
-		{'#', '#'},
-		{'=', '='},
-		{':', ':'},
-		{'x', 'x'},
-		{'"', '"'},
-		{'\'', '\''},
-		{'\0', '\0'}
-	};
 
 	bool getNextLine();
 	void getKey();

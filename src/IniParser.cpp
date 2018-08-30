@@ -22,7 +22,6 @@ void IniParser::parse()
 	while (getNextLine()) {
 		if (getSection() || isCommentLine())
 			continue;
-		std::cout << '1' << std::endl;
 		formatLine();
 		escapeCharacter();
 		getKey();
@@ -81,7 +80,6 @@ void IniParser::getKey()
 		key = line.substr(0, line.find("="));
 	else if (equalPos == std::string::npos || equalPos > colonPos)
 		key = line.substr(0, line.find(":"));	
-	std::cout << line << std::endl;
 }
 
 void IniParser::getValue()
@@ -96,7 +94,6 @@ void IniParser::getValue()
 		value = line.substr(line.find("=") + 1);
 	else if (equalPos == std::string::npos || equalPos > colonPos)
 		value = line.substr(line.find(":") + 1);
-	std::cout << line << std::endl;
 }
 
 bool IniParser::getSection()
