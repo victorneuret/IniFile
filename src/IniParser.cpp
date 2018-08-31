@@ -23,9 +23,9 @@ void IniParser::parse()
 		if (getSection() || isCommentLine())
 			continue;
 		formatLine();
-		escapeCharacter();
 		getKey();
 		getValue();
+		escapeCharacter();
 		valueQuotes();
 		fileMap[section][key] = value;
 	}
@@ -54,7 +54,10 @@ void IniParser::formatLine()
 {
 	int i = 0;
 
-	while (line[i] != '=' && line[i] != ':') {
+	while (line[i]) {
+		if ((line[i] == '=' && line[i - 1] != '\\')
+			|| (line[i] == ':' && line[i - 1] != '\\'))
+			break;
 		if (line[i] == ' ') {
 			line.erase(i, 1);
 			continue;
@@ -70,30 +73,30 @@ void IniParser::formatLine()
 
 void IniParser::getKey()
 {
-	size_t equalPos = line.find_first_of('=');
-	size_t colonPos = line.find_first_of(':');
-	
-	if (colonPos == std::string::npos && equalPos == std::string::npos)
+	size_t i = 1;
+
+	while (line[i++])
+		if ((line[i] == '=' && line[i - 1] != '\\')
+			|| (line[i] == ':' && line[i - 1] != '\\'))
+			break;
+	if (i >= line.length())
 		throw std::runtime_error(
 			MISSING_SEPARATOR + std::to_string(actualLine));
-	if (colonPos == std::string::npos || equalPos < colonPos)
-		key = line.substr(0, line.find("="));
-	else if (equalPos == std::string::npos || equalPos > colonPos)
-		key = line.substr(0, line.find(":"));	
+	key = line.substr(0, i);
 }
 
 void IniParser::getValue()
 {
-	size_t equalPos = line.find_first_of('=');
-	size_t colonPos = line.find_first_of(':');
-	
-	if (colonPos == std::string::npos && equalPos == std::string::npos)
+	size_t i = 1;
+
+	while (line[i++])
+		if ((line[i] == '=' && line[i - 1] != '\\')
+			|| (line[i] == ':' && line[i - 1] != '\\'))
+			break;
+	if (i >= line.length())
 		throw std::runtime_error(
 			MISSING_SEPARATOR + std::to_string(actualLine));
-	if (colonPos == std::string::npos || equalPos < colonPos)
-		value = line.substr(line.find("=") + 1);
-	else if (equalPos == std::string::npos || equalPos > colonPos)
-		value = line.substr(line.find(":") + 1);
+	value = line.substr(i + 1);
 }
 
 bool IniParser::getSection()
@@ -112,7 +115,6 @@ void IniParser::valueQuotes()
 
 	for (int i = 0; value[i]; i++)
 		if ((value[i] == '"' || value[i] == '\''))
-			// && ((i > 1) ? value[i - 1] != '\\' : 1))
 			nbQuotes++;
 	if ((nbQuotes != 2 && nbQuotes != 0) 
 		|| (nbQuotes == 2 && value[0] != value[length]))
@@ -126,6 +128,9 @@ void IniParser::valueQuotes()
 
 void IniParser::escapeCharacter()
 {
-	EscapeChar escape(line);
-	line = escape.getString();
+	EscapeChar escape(key);
+	key = escape.getString();
+	escape.setString(value);
+	escape.replace();
+	value = escape.getString();
 }
