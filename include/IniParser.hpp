@@ -6,6 +6,7 @@
 
 #define INVALID_QUOTES "Invalid quotes on line "
 #define MISSING_SEPARATOR "Missing separator on line "
+#define UNKNOW_KEY "The key asked in unknow at line "
 
 class IniParser
 {
@@ -32,4 +33,5 @@ class IniParser
 	void formatLine();
 	void valueQuotes();
 	void escapeCharacter();
+	void callKey();
 };

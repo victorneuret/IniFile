@@ -27,6 +27,7 @@ void IniParser::parse()
 		getValue();
 		valueQuotes();
 		escapeCharacter();
+		callKey();
 		fileMap[section][key] = value;
 	}
 }
@@ -134,4 +135,18 @@ void IniParser::escapeCharacter()
 	escape.setString(value);
 	escape.replace();
 	value = escape.getString();
+}
+
+void IniParser::callKey()
+{
+	std::string replaceKey;
+	
+	if (value[0] == '$') {
+		replaceKey = value.erase(0, 1);
+		if (fileMap[section].count(replaceKey) > 0)
+			value = fileMap[section][replaceKey];
+		else
+			throw std::runtime_error(
+				UNKNOW_KEY + std::to_string(actualLine));
+	}
 }
