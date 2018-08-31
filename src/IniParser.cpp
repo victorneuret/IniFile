@@ -25,8 +25,8 @@ void IniParser::parse()
 		formatLine();
 		getKey();
 		getValue();
-		escapeCharacter();
 		valueQuotes();
+		escapeCharacter();
 		fileMap[section][key] = value;
 	}
 }
@@ -114,7 +114,8 @@ void IniParser::valueQuotes()
 	int length = value.length() - 1;
 
 	for (int i = 0; value[i]; i++)
-		if ((value[i] == '"' || value[i] == '\''))
+		if ((value[i] == '"' && (i > 0 ? value[i - 1] != '\\' : 1))
+			|| (value[i] == '\'' && (i > 0 ? value[i - 1] != '\\' : 1)))
 			nbQuotes++;
 	if ((nbQuotes != 2 && nbQuotes != 0) 
 		|| (nbQuotes == 2 && value[0] != value[length]))
