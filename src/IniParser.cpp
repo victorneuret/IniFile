@@ -165,7 +165,9 @@ std::string IniParser::parseKey(int pos)
 	}
 	if (endPos == 0)
 		return "";
-	replaceKey = value.substr(pos + 2, endPos - 2);
+	pos += 2;
+	replaceKey = value.substr(pos, endPos - pos);
+	std::cout << replaceKey << std::endl;
 	return replaceKey;
 }
 
@@ -180,9 +182,11 @@ void IniParser::replaceCalledKey(int pos, std::string replaceKey)
 			endPos = i;
 			break;
 		}
-	value.replace(pos, endPos + 1, replaceKey);
+	std::cout << replaceKey << std::endl;
+	// value.replace(pos, endPos + 1, replaceKey);
 	if (fileMap[section].count(replaceKey) > 0)
-		value = fileMap[section][replaceKey];
+		// value = fileMap[section][replaceKey];
+		value.replace(pos, endPos + 1 - pos, fileMap[section][replaceKey]);
 	else
 		throw std::runtime_error(
 			UNKNOW_KEY + std::to_string(actualLine));
