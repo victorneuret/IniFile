@@ -7,6 +7,7 @@
 #define INVALID_QUOTES "Invalid quotes on line "
 #define MISSING_SEPARATOR "Missing separator on line "
 #define UNKNOW_KEY "The key asked in unknow at line "
+#define BAD_SYNTAX "Bas syntax at line "
 
 class IniParser
 {
@@ -34,4 +35,6 @@ class IniParser
 	void valueQuotes();
 	void escapeCharacter();
 	void callKey();
+	std::string parseKey(int pos);
+	void replaceCalledKey(int pos, std::string replaceKey);
 };

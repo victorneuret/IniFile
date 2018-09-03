@@ -116,9 +116,10 @@ void IniParser::valueQuotes()
 
 	for (int i = 0; value[i]; i++)
 		if ((value[i] == '"' && (i > 0 ? value[i - 1] != '\\' : 1))
-			|| (value[i] == '\'' && (i > 0 ? value[i - 1] != '\\' : 1)))
+			|| (value[i] == '\''
+			&& (i > 0 ? value[i - 1] != '\\' : 1)))
 			nbQuotes++;
-	if ((nbQuotes != 2 && nbQuotes != 0) 
+	if ((nbQuotes != 2 && nbQuotes != 0)
 		|| (nbQuotes == 2 && value[0] != value[length]))
 		throw std::runtime_error(
 			INVALID_QUOTES + std::to_string(actualLine));
@@ -140,13 +141,49 @@ void IniParser::escapeCharacter()
 void IniParser::callKey()
 {
 	std::string replaceKey;
-	
-	if (value[0] == '$') {
-		replaceKey = value.erase(0, 1);
-		if (fileMap[section].count(replaceKey) > 0)
-			value = fileMap[section][replaceKey];
-		else
-			throw std::runtime_error(
-				UNKNOW_KEY + std::to_string(actualLine));
+
+	for (int i = 0; value[i]; i++) {
+		if (value[i] == '$') {
+			replaceKey = parseKey(i);
+			replaceCalledKey(i, replaceKey);
+		}
 	}
+}
+
+std::string IniParser::parseKey(int pos)
+{
+	int endPos = 0;
+	std::string replaceKey;
+
+	if (value[pos + 1] == '\0' || value[pos + 1] != '{')
+		return "";
+	for (int i = 0; value[i]; i++) {
+		if (value[i] == '}') {
+			endPos = i;
+			break;
+		}
+	}
+	if (endPos == 0)
+		return "";
+	replaceKey = value.substr(pos + 2, endPos - 2);
+	return replaceKey;
+}
+
+void IniParser::replaceCalledKey(int pos, std::string replaceKey)
+{
+	int endPos = 0;
+
+	if (replaceKey == "")
+		return;
+	for (int i = pos; value[i]; i++)
+		if (value[i] == '}') {
+			endPos = i;
+			break;
+		}
+	value.replace(pos, endPos + 1, replaceKey);
+	if (fileMap[section].count(replaceKey) > 0)
+		value = fileMap[section][replaceKey];
+	else
+		throw std::runtime_error(
+			UNKNOW_KEY + std::to_string(actualLine));
 }
