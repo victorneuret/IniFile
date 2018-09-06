@@ -28,6 +28,7 @@ class IniParser
 	bool getNextLine();
 	void getKey();
 	void getValue();
+	void lineBreak();
 	bool getSection();
 	bool isCommentLine();
 	bool isBlankLine();

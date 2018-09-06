@@ -20,7 +20,7 @@ std::map<std::string, std::map<std::string, std::string>> IniParser::getMap()
 void IniParser::parse()
 {
 	while (getNextLine()) {
-		if (getSection() || isCommentLine())
+		if (isBlankLine() || getSection() || isCommentLine())
 			continue;
 		formatLine();
 		getKey();
@@ -40,10 +40,27 @@ bool IniParser::getNextLine()
 	return true;
 }
 
+bool IniParser::isBlankLine()
+{
+	int nbChar = 0;
+	bool blankLine = false;
+
+	for (int i = 0; line[i]; i++)
+		if (line[i] != ' ' && line[i] != '\t')
+			nbChar++;
+	if (nbChar == 0)
+		blankLine = true;
+	return blankLine;
+}
+
 bool IniParser::isCommentLine()
 {
-	if (line[0] == ';' || line[0] == '#')
+	while (line[0] == ' ' || line[0] == '\t')
+		line.erase(0, 1);
+	if (line[0] == ';' || line[0] == '#') {
+		line = "";
 		return true;
+	}
 	for (int i = 0; line[i]; i++) {
 		if ((line[i] == ';' || line[i] == '#') && line[i - 1] != '\\')
 			line.erase(i, line.length() - 1);
@@ -66,7 +83,7 @@ void IniParser::formatLine()
 		i++;
 	}
 	i++;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line[i] == '\t')
 		line.erase(i, 1);
 	for (int j = line.length() - 1; line[j] == ' '; j--)
 		line.erase(j, 1);
@@ -98,6 +115,28 @@ void IniParser::getValue()
 		throw std::runtime_error(
 			MISSING_SEPARATOR + std::to_string(actualLine));
 	value = line.substr(i + 1);
+	lineBreak();
+}
+
+void IniParser::lineBreak()
+{
+	if (value[value.length() - 1] == '\\') {
+		value.erase(value.length() - 1, 1);
+		while (value[value.length() - 1] == ' '
+			|| value[value.length() - 1] == '\t')
+			value.erase(value.length() - 1, 1);
+		value.append(" ");
+		getNextLine();
+		if (isCommentLine()) {
+			value.append("\\");
+			lineBreak();
+		}
+		while (line[0] == ' ' || line[0] == '\t')
+			line.erase(0, 1);
+		value.append(line);
+	}
+	if (value[value.length() - 1] == '\\')
+		lineBreak();
 }
 
 bool IniParser::getSection()
@@ -167,7 +206,6 @@ std::string IniParser::parseKey(int pos)
 		return "";
 	pos += 2;
 	replaceKey = value.substr(pos, endPos - pos);
-	std::cout << replaceKey << std::endl;
 	return replaceKey;
 }
 
@@ -182,10 +220,7 @@ void IniParser::replaceCalledKey(int pos, std::string replaceKey)
 			endPos = i;
 			break;
 		}
-	std::cout << replaceKey << std::endl;
-	// value.replace(pos, endPos + 1, replaceKey);
 	if (fileMap[section].count(replaceKey) > 0)
-		// value = fileMap[section][replaceKey];
 		value.replace(pos, endPos + 1 - pos, fileMap[section][replaceKey]);
 	else
 		throw std::runtime_error(
