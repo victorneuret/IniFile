@@ -5,6 +5,8 @@
 
 #include "IniParser.hpp"
 
+#define MAP_DEFINITION std::map<std::string, std::map<std::string, std::string>>
+
 class IniFile {
 public:
 	explicit IniFile(std::string fileName);
