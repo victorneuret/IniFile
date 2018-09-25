@@ -13,7 +13,7 @@
 Test(key, key)
 {
 	std::string fileName = "testKey.ini";
-	std::ofstream testFile(fileName, std::fstream::out | std::fstream::trunc);
+	std::ofstream testFile(fileName);
 	MAP_DEFINITION map;
 
 	testFile << "name = John" << std::endl;
