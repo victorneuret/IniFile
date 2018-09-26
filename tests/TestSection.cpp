@@ -17,7 +17,7 @@ Test(section, section)
 
 	testFile << "[Section]" << std::endl;
 	testFile << "firstName = John" << std::endl;
-	testFile << "LastName = Doe" << std::endl;
+	testFile << "lastName = Doe" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
 	cr_assert_eq(map.count("Section"), 1);

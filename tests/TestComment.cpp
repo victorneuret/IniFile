@@ -18,7 +18,7 @@ Test(comment, lineCommentOne)
     testFile << "# first line comment" << std::endl;
 	testFile << "firstName = John" << std::endl;
 	testFile << "# This comment is awesome!" << std::endl;
-    testFile << "LastName = Doe" << std::endl;
+    testFile << "lastName = Doe" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
     cr_assert_eq(map.count("global"), 1);
@@ -37,7 +37,7 @@ Test(comment, lineCommentTwo)
     testFile << "; first line comment" << std::endl;
 	testFile << "firstName = John" << std::endl;
 	testFile << "; This comment is awesome!" << std::endl;
-    testFile << "LastName = Doe" << std::endl;
+    testFile << "lastName = Doe" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
     cr_assert_eq(map.count("global"), 1);
@@ -55,7 +55,7 @@ Test(comment, inlineCommentOne)
 
     testFile << "firstName = John #Doe" << std::endl;
 	testFile << "# This comment is awesome!" << std::endl;
-    testFile << "LastName = Doe      #    Comment" << std::endl;
+    testFile << "lastName = Doe      #    Comment" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
     cr_assert_eq(map.count("global"), 1);
@@ -73,7 +73,7 @@ Test(comment, inlineCommentTwo)
 
     testFile << "firstName = John ;Doe" << std::endl;
 	testFile << "# This comment is awesome!" << std::endl;
-    testFile << "LastName = Doe      ;    Comment" << std::endl;
+    testFile << "lastName = Doe      ;    Comment" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
     cr_assert_eq(map.count("global"), 1);
