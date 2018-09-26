@@ -7,7 +7,6 @@
 #include <criterion/criterion.h>
 
 #include "IniParser.hpp"
-
 #include "tests.hpp"
 
 Test(getMap, getEmptyMap)
