@@ -10,7 +10,9 @@ SRC_UNIT=	$(filter-out src/main.cpp, $(SRC))	\
 		tests/TestKey.cpp	\
 		tests/TestValue.cpp	\
 		tests/TestSeparator.cpp	\
-		tests/TestComment.cpp
+		tests/TestComment.cpp	\
+		tests/TestCallKey.cpp	\
+		tests/TestCaseSensitive.cpp
 
 SRC	+=	src/main.cpp
 
