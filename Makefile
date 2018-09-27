@@ -5,14 +5,15 @@ SRC	=	src/IniParser.cpp	\
 		src/EscapeChar.cpp
 
 SRC_UNIT=	$(filter-out src/main.cpp, $(SRC))	\
-		tests/TestGetMap.cpp	\
-		tests/TestSection.cpp	\
-		tests/TestKey.cpp	\
-		tests/TestValue.cpp	\
-		tests/TestSeparator.cpp	\
-		tests/TestComment.cpp	\
-		tests/TestCallKey.cpp	\
-		tests/TestCaseSensitive.cpp
+		tests/TestGetMap.cpp		\
+		tests/TestSection.cpp		\
+		tests/TestKey.cpp		\
+		tests/TestValue.cpp		\
+		tests/TestSeparator.cpp		\
+		tests/TestComment.cpp		\
+		tests/TestCallKey.cpp		\
+		tests/TestCaseSensitive.cpp	\
+		tests/TestBlankLine.cpp
 
 SRC	+=	src/main.cpp
 
