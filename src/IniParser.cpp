@@ -221,7 +221,8 @@ void IniParser::replaceCalledKey(int pos, std::string replaceKey)
 			break;
 		}
 	if (fileMap[section].count(replaceKey) > 0)
-		value.replace(pos, endPos + 1 - pos, fileMap[section][replaceKey]);
+		value.replace(pos, endPos + 1 - pos,
+			fileMap[section][replaceKey]);
 	else
 		throw std::runtime_error(
 			UNKNOW_KEY + std::to_string(actualLine));

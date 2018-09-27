@@ -19,8 +19,6 @@ Test(separator, separatorEqual)
 	testFile << "lastName = Doe" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
-	cr_assert_eq(map.count("global"), 1);
-	cr_assert_eq(map["global"].size(), 2);
 	cr_assert_eq(map["global"]["firstName"], "John");
 	cr_assert_eq(map["global"]["lastName"], "Doe");
 	remove(fileName.c_str());
@@ -36,8 +34,6 @@ Test(separator, separatorColon)
 	testFile << "lastName : Doe" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
-	cr_assert_eq(map.count("global"), 1);
-	cr_assert_eq(map["global"].size(), 2);
 	cr_assert_eq(map["global"]["firstName"], "John");
 	cr_assert_eq(map["global"]["lastName"], "Doe");
 	remove(fileName.c_str());
@@ -53,8 +49,6 @@ Test(separator, separatorBoth)
 	testFile << "lastName : Doe" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
-	cr_assert_eq(map.count("global"), 1);
-	cr_assert_eq(map["global"].size(), 2);
 	cr_assert_eq(map["global"]["firstName"], "John");
 	cr_assert_eq(map["global"]["lastName"], "Doe");
 	remove(fileName.c_str());

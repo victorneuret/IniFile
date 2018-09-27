@@ -15,12 +15,11 @@ Test(value, value)
 	std::ofstream testFile(fileName);
 	MAP_DEFINITION map;
 
-	testFile << "[Section]" << std::endl;
 	testFile << "firstName = John" << std::endl;
 	testFile << "age = 42" << std::endl;
 	IniParser parser(fileName);
 	map = parser.getMap();
-	cr_assert_eq(map["Section"]["firstName"], "John");
-	cr_assert_eq(map["Section"]["age"], "42");
+	cr_assert_eq(map["global"]["firstName"], "John");
+	cr_assert_eq(map["global"]["age"], "42");
 	remove(fileName.c_str());
 }
