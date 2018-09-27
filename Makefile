@@ -13,7 +13,9 @@ SRC_UNIT=	$(filter-out src/main.cpp, $(SRC))	\
 		tests/TestComment.cpp		\
 		tests/TestCallKey.cpp		\
 		tests/TestCaseSensitive.cpp	\
-		tests/TestBlankLine.cpp
+		tests/TestBlankLine.cpp		\
+		tests/TestTrailingSpace.cpp	\
+		tests/TestDuplicateKeys.cpp
 
 SRC	+=	src/main.cpp
 
@@ -42,7 +44,7 @@ re:		fclean all
 
 tests_run:
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) $(CPPFLAGS_UNIT) $(SRC_UNIT) $(TESTS_FLAGS) -o tests_run
-	./tests_run
+	./tests_run --verbose
 
 clean_coverage:
 		find . \( -name '*.gcda' -o -name '*.gcno' -o -name '*.gcov' -o -name 'tests_run' \) -delete
