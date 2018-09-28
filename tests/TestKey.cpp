@@ -21,3 +21,18 @@ Test(key, key)
 	cr_assert_eq(map["global"].count("name"), 1);
 	remove(fileName.c_str());
 }
+
+Test(key, spaceInKeyName)
+{
+	std::string fileName = "testSpaceInKeyName.ini";
+	std::ofstream testFile(fileName);
+	MAP_DEFINITION map;
+
+	testFile << "first name = John" << std::endl;
+	IniParser parser(fileName);
+	map = parser.getMap();
+	cr_assert_eq(map["global"].count("first name"), 0);
+	cr_assert_eq(map["global"].count("firstname"), 1);
+	cr_assert_eq(map["global"]["firstname"], "John");
+	remove(fileName.c_str());
+}
