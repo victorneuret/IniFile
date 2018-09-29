@@ -13,7 +13,7 @@ Test(value, value)
 {
 	std::string fileName = "testValue.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "firstName = John" << std::endl;
 	testFile << "age = 42" << std::endl;

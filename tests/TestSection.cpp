@@ -13,7 +13,7 @@ Test(section, section)
 {
 	std::string fileName = "testSection.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "[Section]" << std::endl;
 	testFile << "firstName = John" << std::endl;
@@ -29,7 +29,7 @@ Test(section, multipleSection)
 {
 	std::string fileName = "testMultipleSection.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "[Section]" << std::endl;
 	testFile << "firstName = John" << std::endl;

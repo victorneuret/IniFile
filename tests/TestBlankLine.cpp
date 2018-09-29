@@ -13,7 +13,7 @@ Test(blankLine, blankLine)
 {
 	std::string fileName = "testBlankLine.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "[Section]" << std::endl << std::endl;
 	testFile << "firstName = John" << std::endl << std::endl << std::endl;

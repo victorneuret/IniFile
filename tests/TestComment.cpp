@@ -13,7 +13,7 @@ Test(comment, lineCommentOne)
 {
 	std::string fileName = "testLineCommentOne.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
     testFile << "# first line comment" << std::endl;
 	testFile << "firstName = John" << std::endl;
@@ -32,7 +32,7 @@ Test(comment, lineCommentTwo)
 {
 	std::string fileName = "testLineCommentTwo.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
     testFile << "; first line comment" << std::endl;
 	testFile << "firstName = John" << std::endl;
@@ -51,7 +51,7 @@ Test(comment, inlineCommentOne)
 {
 	std::string fileName = "testInlineCommentOne.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
     testFile << "firstName = John #Doe" << std::endl;
 	testFile << "# This comment is awesome!" << std::endl;
@@ -69,7 +69,7 @@ Test(comment, inlineCommentTwo)
 {
 	std::string fileName = "testInlineCommentTwo.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
     testFile << "firstName = John ;Doe" << std::endl;
 	testFile << "# This comment is awesome!" << std::endl;

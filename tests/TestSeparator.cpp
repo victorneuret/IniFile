@@ -13,7 +13,7 @@ Test(separator, separatorEqual)
 {
 	std::string fileName = "testSeparatorEqual.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "firstName = John" << std::endl;
 	testFile << "lastName = Doe" << std::endl;
@@ -28,7 +28,7 @@ Test(separator, separatorColon)
 {
 	std::string fileName = "testSeparatorColon.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "firstName : John" << std::endl;
 	testFile << "lastName : Doe" << std::endl;
@@ -43,7 +43,7 @@ Test(separator, separatorBoth)
 {
 	std::string fileName = "testSeparatorBoth.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "firstName = John" << std::endl;
 	testFile << "lastName : Doe" << std::endl;

@@ -13,7 +13,7 @@ Test(keySensitive, keySensitive)
 {
 	std::string fileName = "testKeySensitive.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "firstName = John" << std::endl;
 	testFile << "lastName = Doe" << std::endl;

@@ -13,7 +13,7 @@ Test(callKey, callKeyBefore)
 {
 	std::string fileName = "testCallKeyBefore.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "firstName = John" << std::endl;
 	testFile << "name = ${firstName}" << std::endl;
@@ -28,7 +28,7 @@ Test(callKey, callKeyAfter)
 {
 	std::string fileName = "testCallKeyAfter.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = ${firstName}" << std::endl;
 	testFile << "firstName = John" << std::endl;

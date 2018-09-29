@@ -13,7 +13,7 @@ Test(trailingSpace, trailingSpace)
 {
 	std::string fileName = "testTrailingSpace.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "     firstName           =          John    " << std::endl;
 	IniParser parser(fileName);
@@ -26,7 +26,7 @@ Test(trailingSpace, noSpace)
 {
 	std::string fileName = "testNoSpace.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "lastName=Doe" << std::endl;
 	IniParser parser(fileName);

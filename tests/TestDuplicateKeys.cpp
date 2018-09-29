@@ -13,7 +13,7 @@ Test(duplicateKeys, duplicateKeys)
 {
 	std::string fileName = "testDuplicateKeys.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = John Doe" << std::endl;
 	testFile << "[Section]" << std::endl;

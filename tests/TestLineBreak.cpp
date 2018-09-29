@@ -13,7 +13,7 @@ Test(lineBreak, simpleLineBreak)
 {
 	std::string fileName = "testSimpleLineBreak.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = John\\" << std::endl;
 	testFile << "Doe" << std::endl;
@@ -28,7 +28,7 @@ Test(lineBreak, spacesLineBreak)
 {
 	std::string fileName = "testSpacesLineBreak.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = John	\\" << std::endl;
 	testFile << "		Doe		" << std::endl;
@@ -43,7 +43,7 @@ Test(lineBreak, tabsLineBreak)
 {
 	std::string fileName = "testTabsLineBreak.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = John\t\\" << std::endl;
 	testFile << "\t\tDoe\t" << std::endl;
@@ -58,7 +58,7 @@ Test(lineBreak, lineBreakKey)
 {
 	std::string fileName = "testLineBreakKey.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = John \\" << std::endl;
 	testFile << "lastName = Doe" << std::endl;
@@ -73,7 +73,7 @@ Test(lineBreak, multipleLineBreak)
 {
 	std::string fileName = "testMultipleLineBreak.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = John	\\" << std::endl;
 	testFile << "		Doe	\\" << std::endl;

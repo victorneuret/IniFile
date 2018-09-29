@@ -13,7 +13,7 @@ Test(key, key)
 {
 	std::string fileName = "testKey.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "name = John" << std::endl;
 	IniParser parser(fileName);
@@ -26,7 +26,7 @@ Test(key, spaceInKeyName)
 {
 	std::string fileName = "testSpaceInKeyName.ini";
 	std::ofstream testFile(fileName);
-	MAP_DEFINITION map;
+	IniMap map;
 
 	testFile << "first name = John" << std::endl;
 	IniParser parser(fileName);
