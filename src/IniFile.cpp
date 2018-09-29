@@ -3,7 +3,7 @@
 
 #include "IniFile.hpp"
 
-IniFile::IniFile(std::string fileName)
+IniFile::IniFile(std::string &fileName)
 {
 	try {
 		IniParser parser(fileName);
@@ -23,7 +23,8 @@ void IniFile::printMap()
 	}
 }
 
-std::map<std::string, std::map<std::string, std::string>> IniFile::getMap()
+const std::map<std::string, std::map<std::string, std::string>>
+	&IniFile::getMap()
 {
 	return fileMap;
 }

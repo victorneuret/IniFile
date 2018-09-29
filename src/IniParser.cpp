@@ -5,14 +5,15 @@
 #include "EscapeChar.hpp"
 
 IniParser::IniParser(std::string &filePath)
+	: file(filePath, std::fstream::in)
 {
-	file.open(filePath, std::fstream::in);
 	if (!file.is_open())
 		throw std::runtime_error("can't open file: " + filePath);
 	parse();
 }
 
-std::map<std::string, std::map<std::string, std::string>> IniParser::getMap()
+const std::map<std::string, std::map<std::string, std::string>>
+	&IniParser::getMap()
 {
 	return fileMap;
 }

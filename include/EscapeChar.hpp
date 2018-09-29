@@ -4,15 +4,15 @@
 
 class EscapeChar {
 public:
-	EscapeChar(std::string str);
+	EscapeChar(std::string &str);
 	std::string getString();
-	void setString(std::string str);
+	void setString(std::string &str);
 	void replace();
 
 private:
 	std::string string;
 	char replaceTo = '\0';
-    char escapeCharList[15][2] = {
+	char escapeCharList[15][2] = {
 		{'\\', '\\'},
 		{'0', '\0'},
 		{'a', '\a'},

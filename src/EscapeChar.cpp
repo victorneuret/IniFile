@@ -3,13 +3,13 @@
 
 #include "EscapeChar.hpp"
 
-EscapeChar::EscapeChar(std::string str)
+EscapeChar::EscapeChar(std::string &str)
 {
 	setString(str);
 	replace();
 }
 
-void EscapeChar::setString(std::string str)
+void EscapeChar::setString(std::string &str)
 {
 	string = str;
 }
@@ -41,7 +41,7 @@ bool EscapeChar::isEscapeChar(int i)
 }
 
 void EscapeChar::replaceThis(int i)
-{	
+{
 	string.insert(i, 1, replaceTo);
 	string.erase(i + 1, 2);
 }
