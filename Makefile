@@ -15,7 +15,8 @@ SRC_UNIT=	$(filter-out src/main.cpp, $(SRC))	\
 		tests/TestCaseSensitive.cpp	\
 		tests/TestBlankLine.cpp		\
 		tests/TestTrailingSpace.cpp	\
-		tests/TestDuplicateKeys.cpp
+		tests/TestDuplicateKeys.cpp	\
+		tests/TestLineBreak.cpp
 
 SRC	+=	src/main.cpp
 
