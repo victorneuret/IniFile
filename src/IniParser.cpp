@@ -133,6 +133,9 @@ void IniParser::lineBreak()
 		}
 		while (line[0] == ' ' || line[0] == '\t')
 			line.erase(0, 1);
+		while (line[line.length() - 1] == ' '
+			|| line[line.length() - 1] == '\t')
+			line.erase(line.length() - 1, 1);
 		value.append(line);
 	}
 	if (value[value.length() - 1] == '\\')
