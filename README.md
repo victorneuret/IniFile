@@ -1,5 +1,7 @@
 # [README.md](http://readme.md) IniFile
 
+*This project was made to learn CPP*
+
 # **IniFile**
 
 ---
